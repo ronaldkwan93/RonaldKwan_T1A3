@@ -1,23 +1,24 @@
 from colored import fg, attr, bg
-from functions import new_user
-file_name = "list.csv"
+from functions import new_user, check_new_user, user
+
+user_list = "list.csv"
 file_user = "users.csv"
 
 print(f"{fg('black')}{bg('white')}Welcome to OnePWD Manager! {attr('reset')}")
 
 try:
-    #open the file in read mode
+    # open the file in read mode
     todo_file = open(file_user, "r")
     todo_file.close()
     # print("In Try Block")
-    # if it throws error, it means the file doesn't exist
-    # if no error, it means the file exist
+    # if it throws an error, it means the file doesn't exist
+    # if no error, it means the file exists
 except FileNotFoundError:
-    # Now, we know the file doesn't exit
+    # Now, we know the file doesn't exist
     # Create the file
     todo_file = open(file_user, "w")
     # We can also insert the first line into the file
-    todo_file.write("User, Password\n") #/n means go to the next line entered
+    # todo_file.write("User, Password\n")  # /n means go to the next line entered
     todo_file.close()
     print("In except block")
 
@@ -26,21 +27,25 @@ def create_menu():
     print("2. Enter 2 to login")
     print("5. Enter 5 to exit")
     choice = input("Enter your selection: ")
-    return choice 
+    return choice
 
 users_choice = ""
 
 while users_choice != "5":
     users_choice = create_menu()
-    if (users_choice == "1"):
+
+    if users_choice == "1":
         print("You entered 1")
         new_user(file_user)
+    elif users_choice == "2":
+        print("You entered 2")
+        user(file_user)
         break
-    elif(users_choice == "2"):
-        remove_todo(file_user)
-    elif(users_choice == "5"):
-        continue # user goes out of the loop to the print "Thank you" message
+    elif users_choice == "5":
+        continue  # user goes out of the loop to the print "Thank you" message
     else:
         print("Invalid Input")
 
+
 print("Thank you for using OnePWD Manager!")
+
