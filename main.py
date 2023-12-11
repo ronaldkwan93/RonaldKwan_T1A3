@@ -1,5 +1,5 @@
 from colored import fg, attr, bg
-from functions import new_user, check_new_user, user
+from functions import new_user
 
 user_list = "list.csv"
 file_user = "users.csv"
@@ -30,6 +30,8 @@ def create_menu():
     return choice
 
 users_choice = ""
+user = ""
+password = ""
 
 while users_choice != "5":
     users_choice = create_menu()
@@ -38,9 +40,11 @@ while users_choice != "5":
         print("You entered 1")
         new_user(file_user)
     elif users_choice == "2":
-        print("You entered 2")
-        user(file_user)
-        break
+        # if user is validated, show user menu
+        print(f"{fg('black')}{bg('white')}Login Authentication {attr('reset')}")
+        user = input("Please insert your username: ")
+        password = input("Please insert your password: ")
+        
     elif users_choice == "5":
         continue  # user goes out of the loop to the print "Thank you" message
     else:
