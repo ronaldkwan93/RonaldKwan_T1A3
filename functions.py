@@ -14,6 +14,7 @@ def new_user(file_user):
     print(f"{fg('black')}{bg('white')}Welcome {newuser_name}! \nChoose option 2 to login.{attr('reset')}")
 
 def user(file_user):
+    user_list = "list.csv"
     show_menu = True
 
     while show_menu:
@@ -69,15 +70,17 @@ def user(file_user):
                     print("Invalid selection! Please enter 1, 2, 3")
 
         elif user_choice == "3":
+            delete_name = ""
+            delete_pwd = ""
             print("You entered 3")
             print(f"{fg('black')}{bg('white')}Delete a Password{attr('reset')}")
-            pwd_delete = input("Please type the username of password to delete: ")
+            password_delete(user_list, delete_name, delete_pwd)
         elif user_choice == "4":
             print(f"{fg('black')}{bg('white')}Main Menu {attr('reset')}")
             show_menu = False
 
 def password_list(user_list):
-    print("New UserName")
+    print("Creating a Password")
     #Ask the title of the todo
     pwd_name = input("Enter the name: ")
     pwd_pwd = input("Enter the password: ")
@@ -88,3 +91,24 @@ def password_list(user_list):
         writer.writerow([pwd_name, pwd_pwd])
     print(f"{fg('black')}{bg('white')}{pwd_name}'s password added! \nChoose option 1 to view them.{attr('reset')}")
 
+def password_delete(user_list, delete_name, delete_pwd):
+    delete_name = input("Enter the name of the password you would like to delete: ")
+    delete_pwd = input("Enter the password: ")
+    delete_sure = input(f"Are you sure you want to delete {delete_name}? (Y/N): ")
+    if delete_sure == "Y":
+        with open(user_list, 'r', newline='') as file:
+                    # Read existing data from the CSV file
+                    reader = csv.reader(file)
+                    data = [row for row in reader]
+
+
+        with open(user_list, 'w', newline='') as file:
+                    # Write data back to the CSV file excluding the specified entry
+                    writer = csv.writer(file)
+                    for row in data:
+                        if row[0] != delete_name or row[1] != delete_pwd:
+                            writer.writerow(row)
+                            print(f"{delete_name} has been deleted successfully!")
+                        else:
+                            print(f"Either {delete_name} doesn't exist or wrong password")
+                            return
