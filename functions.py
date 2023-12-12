@@ -26,8 +26,16 @@ def user(file_user):
 
         if user_choice == "1":
             print("You entered 1")
-            print(f"{fg('black')}{bg('white')}Current Passwords{attr('reset')}")
-            view_pwd = input("Please type in your User Password: ")
+            print(f"{fg('black')}{bg('white')}Current Passwords (Name, Password){attr('reset')}")
+            # view_pwd = input("Please type in your User Password: ")
+            file = open("list.csv")
+            data = list(csv.reader(file, delimiter=","))
+            file.close()
+
+            flat_data = [item for sublist in data for item in sublist]
+
+            for item in data:
+                print(item)
         elif user_choice == "2":
             print(f"{fg('black')}{bg('white')}Add a Password {attr('reset')}")
             while True:
@@ -36,9 +44,8 @@ def user(file_user):
                 print("3. Press 3 to go back to Main menu")
                 add_pwd = input("Enter your selection: ")
                 if add_pwd == "1": 
-                    manual_username = input("Please create username for password: ")
-                    manual_pwd = input(f"Please type in password for {manual_username}:  ")    
-                    print(f"{fg('black')}{bg('white')}{manual_username}'s Password added!{attr('reset')}")
+                    user_list = "list.csv"
+                    password_list(user_list)
                     break
                 elif add_pwd == "2":
                     print(f"{fg('black')}{bg('white')}Generate a Password{attr('reset')}")
@@ -69,5 +76,15 @@ def user(file_user):
             print(f"{fg('black')}{bg('white')}Main Menu {attr('reset')}")
             show_menu = False
 
-
+def password_list(user_list):
+    print("New UserName")
+    #Ask the title of the todo
+    pwd_name = input("Enter the name: ")
+    pwd_pwd = input("Enter the password: ")
+    # validate_user(file_user, newuser_name, newuser_pwd)
+    # Insert that value into the file - list.csv (use WITH statment, it opens the file, appends and closes it in one go)
+    with open(user_list, "a") as f:
+        writer = csv.writer(f)
+        writer.writerow([pwd_name, pwd_pwd])
+    print(f"{fg('black')}{bg('white')}{pwd_name}'s password added! \nChoose option 1 to view them.{attr('reset')}")
 
