@@ -1,5 +1,6 @@
 from colored import fg, attr, bg
 import csv
+import os 
 
 def new_user(file_user):
     print("New UserName")
@@ -13,7 +14,7 @@ def new_user(file_user):
         writer.writerow([newuser_name, newuser_pwd])
     print(f"{fg('black')}{bg('white')}Welcome {newuser_name}! \nChoose option 2 to login.{attr('reset')}")
 
-def user(file_user):
+def user(user_list):
     user_list = "list.csv"
     show_menu = True
 
@@ -28,10 +29,11 @@ def user(file_user):
         if user_choice == "1":
             print("You entered 1")
             print(f"{fg('black')}{bg('white')}Current Passwords (Name, Password){attr('reset')}")
-            # view_pwd = input("Please type in your User Password: ")
-            file = open("list.csv")
+            if not os.path.exists("list.csv"):
+                 print("No existing passwords, Please press 2 to create some!")
+                 continue
+            file = open(user_list)
             data = list(csv.reader(file, delimiter=","))
-            file.close()
 
             flat_data = [item for sublist in data for item in sublist]
 
@@ -100,15 +102,18 @@ def password_delete(user_list, delete_name, delete_pwd):
                     # Read existing data from the CSV file
                     reader = csv.reader(file)
                     data = [row for row in reader]
+                    
 
 
         with open(user_list, 'w', newline='') as file:
-                    # Write data back to the CSV file excluding the specified entry
                     writer = csv.writer(file)
+                    found_match = False
                     for row in data:
-                        if row[0] != delete_name or row[1] != delete_pwd:
+                        if row[0] != delete_name or row[1] != delete_pwd: 
                             writer.writerow(row)
-                            print(f"{delete_name} has been deleted successfully!")
+                            # print(f"{delete_name} has been deleted successfully!")
                         else:
+                            print(f"{delete_name} has been deleted successfully!")
+                            found_match = True  # Set the variable to True, indicating a match
+                    if not found_match:
                             print(f"Either {delete_name} doesn't exist or wrong password")
-                            return
