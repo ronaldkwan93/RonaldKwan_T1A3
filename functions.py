@@ -14,6 +14,7 @@ def new_user(file_user):
         writer.writerow([newuser_name, newuser_pwd])
     print(f"{fg('black')}{bg('white')}Welcome {newuser_name}! \nChoose option 2 to login.{attr('reset')}")
 
+
 def user(user_list):
     user_list = "list.csv"
     show_menu = True
@@ -111,7 +112,6 @@ def password_delete(user_list, delete_name, delete_pwd):
                     for row in data:
                         if row[0] != delete_name or row[1] != delete_pwd: 
                             writer.writerow(row)
-                            # print(f"{delete_name} has been deleted successfully!")
                         else:
                             print(f"{delete_name} has been deleted successfully!")
                             found_match = True  # Set the variable to True, indicating a match

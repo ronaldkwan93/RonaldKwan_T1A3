@@ -1,5 +1,6 @@
 from colored import fg, attr, bg
 from functions import new_user, user
+import csv
 
 user_list = "list.csv"
 file_user = "users.csv"
@@ -40,14 +41,25 @@ while users_choice != "5":
         new_user(file_user)
     elif users_choice == "2":
         # if user is validated, show user menu
-        print(f"{fg('black')}{bg('white')}Login Authentication {attr('reset')}")
-        user_name = input("Please insert your username: ")
-        password = input("Please insert your password: ")
-        if user_name == "Ronald" and password == "Kwan":
-            print(f"{fg('black')}{bg('white')}You are logged in! {attr('reset')}")
-            user(user_list)
-        else:
-            print("Wrong details, Please try again")
+        user_name = input("Enter your username: ")
+        user_pass = input("Enter your password: ")
+        with open(file_user, 'r', newline='') as file:
+                    # Read existing data from the CSV file
+                    reader = csv.reader(file)
+                    validation_user = False
+                    username_not_found = True
+                    data = [row for row in reader]
+                    for row in data:
+                        if row[0] == user_name or row[1] == user_pass: 
+                            print(f"{fg('black')}{bg('white')}Login Success! \nHello {user_name}{attr('reset')}")
+                            validation_user = True
+                            user(user_list)
+                            username_not_found = False
+                            break
+
+                    if username_not_found:
+                            print(f"{fg('black')}{bg('white')}No Username found or wrong password! Please try again{attr('reset')}")
+                         
         
     elif users_choice == "5":
         continue  # user goes out of the loop to the print "Thank you" message
