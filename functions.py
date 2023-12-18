@@ -3,17 +3,23 @@ import csv
 import os 
 
 def new_user(file_user):
-    print("New UserName")
+    print(f"{fg('black')}{bg('white')}New Username{attr('reset')}")
     #Ask the title of the todo
     newuser_name = input("Enter your name: ")
     newuser_pwd = input("Enter your password: ")
-    # validate_user(file_user, newuser_name, newuser_pwd)
-    # Insert that value into the file - list.csv (use WITH statment, it opens the file, appends and closes it in one go)
-    with open(file_user, "a") as f:
-        writer = csv.writer(f)
-        writer.writerow([newuser_name, newuser_pwd])
-    print(f"{fg('black')}{bg('white')}Welcome {newuser_name}! \nChoose option 2 to login.{attr('reset')}")
-
+    user_exists = False
+    with open (file_user, "r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row and row[0] == newuser_name and row[1] == newuser_pwd:
+                user_exists = True
+                print(f"{fg('black')}{bg('white')}Username [{newuser_name}] already exists. Choose option 2 to login.{attr('reset')}")
+                break
+        if not user_exists:
+            with open(file_user, "a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow([newuser_name, newuser_pwd])
+                print(f"{fg('black')}{bg('white')}Username [{newuser_name}] created! Choose option 2 to login.{attr('reset')}")
 
 def user(user_list):
     user_list = "list.csv"
@@ -36,12 +42,12 @@ def user(user_list):
             file = open(user_list)
             data = list(csv.reader(file, delimiter=","))
 
-            flat_data = [item for sublist in data for item in sublist]
+            # flat_data = [item for sublist in data for item in sublist]
 
             for item in data:
                 print(item)
         elif user_choice == "2":
-            print(f"{fg('black')}{bg('white')}Add a Password {attr('reset')}")
+            print(f"{fg('black')}{bg('white')}Add a Password{attr('reset')}")
             while True:
                 print("1. Press 1 to add a password manually")
                 print("2. Press 2 to generate a secure password")
@@ -83,7 +89,7 @@ def user(user_list):
             show_menu = False
 
 def password_list(user_list):
-    print("Creating a Password")
+    print(f"{fg('black')}{bg('white')}Creating a Password{attr('reset')}")
     #Ask the title of the todo
     pwd_name = input("Enter the name: ")
     pwd_pwd = input("Enter the password: ")
@@ -113,7 +119,9 @@ def password_delete(user_list, delete_name, delete_pwd):
                         if row[0] != delete_name or row[1] != delete_pwd: 
                             writer.writerow(row)
                         else:
-                            print(f"{delete_name} has been deleted successfully!")
+                            print(f"{fg('black')}{bg('white')}[{delete_name}] has been deleted successfully!{attr('reset')}")
+
                             found_match = True  # Set the variable to True, indicating a match
                     if not found_match:
-                            print(f"Either {delete_name} doesn't exist or wrong password")
+                            print(f"{fg('black')}{bg('white')}Either [{delete_name}] doesn't exist or wrong password{attr('reset')}")
+

@@ -21,7 +21,10 @@ except FileNotFoundError:
     # We can also insert the first line into the file
     # todo_file.write("User, Password\n")  # /n means go to the next line entered
     todo_file.close()
-    print("In except block")
+    with open(file_user, "a") as f:
+                        writer = csv.writer(f)
+                        writer.writerow(["Username", "Password"])
+    # print("In except block")
 
 def create_menu():
     print("1. Enter 1 if you are a new user")
@@ -50,7 +53,7 @@ while users_choice != "5":
                     username_not_found = True
                     data = [row for row in reader]
                     for row in data:
-                        if row[0] == user_name or row[1] == user_pass: 
+                        if row[0] == user_name and row[1] == user_pass: 
                             print(f"{fg('black')}{bg('white')}Login Success! \nHello {user_name}{attr('reset')}")
                             validation_user = True
                             user(user_list)
