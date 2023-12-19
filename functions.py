@@ -1,6 +1,8 @@
 from colored import fg, attr, bg
 import csv
 import os 
+import random
+import string
 
 def new_user(file_user):
     print(f"{fg('black')}{bg('white')}New Username{attr('reset')}")
@@ -58,20 +60,41 @@ def user(user_list):
                     password_list(user_list)
                     break
                 elif add_pwd == "2":
-                    print(f"{fg('black')}{bg('white')}Generate a Password{attr('reset')}")
-                    gen_username = input("Please create username for password: ")
-                    pwd_gen = input(f"Would you like to generate a Password for {gen_username}? Y/N:  ")
-                    if pwd_gen == "Y":
-                        print(f"Password Generated for {gen_username}:  ")
-                        print("Would you like to save this password? Option 1")
-                        print("Would you like a different generated password? Option 2")
-                        gen_input = input("Enter your selection: ")
-                        break
-                    elif pwd_gen == "N":
-                        print(f"{fg('black')}{bg('white')}User Menu{attr('reset')}")
-                        break
-                    else:
-                        print("Invalid selection! Please enter Y/N")
+                    gen_pass_true = True
+                    while gen_pass_true:
+                        print(f"{fg('black')}{bg('white')}Generate a Password{attr('reset')}")
+                        gen_username = input("Please create username for password: ")
+                        pwd_gen = input(f"Would you like to generate a Password for {gen_username}? Y/N:  ")
+                        
+                        if pwd_gen == "Y":
+                            generated_password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+                            print(f"{fg('black')}{bg('white')}Password Generated for {gen_username}: {generated_password}{attr('reset')}")
+
+                            while True:
+                                print("Would you like to save this password?   Y/N")
+                                gen_input = input("Enter your selection: ")
+
+                                if gen_input == "Y":
+                                    with open(user_list, "a") as f:
+                                        writer = csv.writer(f)
+                                        writer.writerow([gen_username, generated_password])
+                                    print(f"{fg('black')}{bg('white')}Password saved for {gen_username}!{attr('reset')}")
+                                    gen_pass_true = False
+                                    break
+
+                                elif gen_input == "N":
+                                    break
+                                else:
+                                     print("Invalid entry. Please enter Y or N.")
+                            #if gen_input == "1", Save username & password, open cvs file and then store
+                            #else, run password_gen function again
+                            # break
+                        elif pwd_gen == "N":
+                            print(f"{fg('black')}{bg('white')}User Menu{attr('reset')}")
+                            break
+                        else:
+                            print("Invalid selection! Please enter Y/N")
+                    
                 elif add_pwd == "3":
                     print(f"{fg('black')}{bg('white')}User Menu{attr('reset')}")
                     break
@@ -125,3 +148,25 @@ def password_delete(user_list, delete_name, delete_pwd):
                     if not found_match:
                             print(f"{fg('black')}{bg('white')}Either [{delete_name}] doesn't exist or wrong password{attr('reset')}")
 
+def password_gen(characters, length=15):
+     #characters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "`","!","@","#","$","%","^","&","*"]
+    # for loop, counter < 15, i++ increment)
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+def store_password_in_csv(password, filename='generatedpasswords.csv'):
+    with open(filename, 'a', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow([password])
+        
+
+character_list = [
+    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T",
+    "U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n",
+    "o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3", "4", "5", "6",
+    "7", "8", "9","@","#","$","%","&","*"
+]
+
+generated_password = password_gen(character_list, length=15)
+another_generated_password = password_gen(character_list, length=15)
+store_password_in_csv(generated_password)

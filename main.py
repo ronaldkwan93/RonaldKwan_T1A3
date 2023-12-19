@@ -23,7 +23,7 @@ except FileNotFoundError:
     todo_file.close()
     with open(file_user, "a") as f:
                         writer = csv.writer(f)
-                        writer.writerow(["Username", "Password"])
+                        writer.writerow(["Admin", "Admin"])
     # print("In except block")
 
 def create_menu():
@@ -61,7 +61,7 @@ while users_choice != "5":
                             break
 
                     if username_not_found:
-                            print(f"{fg('black')}{bg('white')}No Username found or wrong password! Please try again{attr('reset')}")
+                            print(f"{fg('black')}{bg('white')}[{user_name}] not valid or wrong password! Please try again{attr('reset')}")
                          
         
     elif users_choice == "5":
