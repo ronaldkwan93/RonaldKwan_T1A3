@@ -3,6 +3,10 @@ import csv
 import os 
 import random
 import string
+import pyperclip
+from datetime import datetime
+
+
 
 def new_user(file_user):
     print(f"{fg('black')}{bg('white')}New Username{attr('reset')}")
@@ -26,12 +30,16 @@ def new_user(file_user):
 def user(user_list):
     user_list = "list.csv"
     show_menu = True
+    gen_counter = 0
+    current_datetime = datetime.now()
+    formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
     while show_menu:
         print("1. Press 1 to view current passwords")
         print("2. Press 2 to add a password")
         print("3. Press 3 to delete a password")
-        print("4. Press 4 to exit back to main menu")
+        print("3. Press 4 to view ONEPWD report")
+        print("4. Press 5 to exit back to main menu")
         user_choice = input("Enter your selection: ")
         users_choice = ""
 
@@ -43,8 +51,6 @@ def user(user_list):
                  continue
             file = open(user_list)
             data = list(csv.reader(file, delimiter=","))
-
-            # flat_data = [item for sublist in data for item in sublist]
 
             for item in data:
                 print(item)
@@ -69,7 +75,7 @@ def user(user_list):
                         if pwd_gen == "Y":
                             generated_password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
                             print(f"{fg('black')}{bg('white')}Password Generated for {gen_username}: {generated_password}{attr('reset')}")
-
+                            
                             while True:
                                 print("Would you like to save this password?   Y/N")
                                 gen_input = input("Enter your selection: ")
@@ -78,11 +84,15 @@ def user(user_list):
                                     with open(user_list, "a") as f:
                                         writer = csv.writer(f)
                                         writer.writerow([gen_username, generated_password])
-                                    print(f"{fg('black')}{bg('white')}Password saved for {gen_username}!{attr('reset')}")
+                                    print(f"{fg('black')}{bg('white')}Password saved for [{gen_username}]!{attr('reset')}")
+                                    gen_counter += 1 
+                                    copy_to_clipboard(generated_password)
+                                    print(f"{fg('black')}{bg('white')}Password copied to clipboard!{attr('reset')}")
                                     gen_pass_true = False
                                     break
 
                                 elif gen_input == "N":
+                                    gen_pass_true = False
                                     break
                                 else:
                                      print("Invalid entry. Please enter Y or N.")
@@ -99,7 +109,7 @@ def user(user_list):
                     print(f"{fg('black')}{bg('white')}User Menu{attr('reset')}")
                     break
                 else:
-                    print("Invalid selection! Please enter 1, 2, 3")
+                    print("Invalid selection! Please enter 1, 2, 3, 4")
 
         elif user_choice == "3":
             delete_name = ""
@@ -108,6 +118,14 @@ def user(user_list):
             print(f"{fg('black')}{bg('white')}Delete a Password{attr('reset')}")
             password_delete(user_list, delete_name, delete_pwd)
         elif user_choice == "4":
+            print(f"{fg('black')}{bg('white')}ONEPWD Report{attr('reset')}")
+            print("Last login:", formatted_datetime)
+            line_count = count_lines_in_csv(file_path)
+            print(f"Passwords in Database: [{line_count}]")
+            print(f"Passwords generated this session: [{gen_counter}]")
+
+            
+        elif user_choice == "5":
             print(f"{fg('black')}{bg('white')}Main Menu {attr('reset')}")
             show_menu = False
 
@@ -116,12 +134,21 @@ def password_list(user_list):
     #Ask the title of the todo
     pwd_name = input("Enter the name: ")
     pwd_pwd = input("Enter the password: ")
+    
     # validate_user(file_user, newuser_name, newuser_pwd)
     # Insert that value into the file - list.csv (use WITH statment, it opens the file, appends and closes it in one go)
     with open(user_list, "a") as f:
         writer = csv.writer(f)
         writer.writerow([pwd_name, pwd_pwd])
-    print(f"{fg('black')}{bg('white')}{pwd_name}'s password added! \nChoose option 1 to view them.{attr('reset')}")
+    print(f"{fg('black')}{bg('white')}[{pwd_name}] password added! -Choose option 1 to view them.{attr('reset')}")
+    if len(pwd_pwd) <=5:
+        print("Note: This password is very weak")
+    elif len(pwd_pwd) <= 10:
+        print("Note: This password is weak")
+    elif len(pwd_pwd) <= 15:
+        print("Note: This password is average")
+    else:
+        print("Note: This password is strong")
 
 def password_delete(user_list, delete_name, delete_pwd):
     delete_name = input("Enter the name of the password you would like to delete: ")
@@ -170,3 +197,22 @@ character_list = [
 generated_password = password_gen(character_list, length=15)
 another_generated_password = password_gen(character_list, length=15)
 store_password_in_csv(generated_password)
+
+def copy_to_clipboard(generated_password):
+     pyperclip.copy(generated_password)
+
+def count_lines_in_csv(file_path):
+    try:
+        with open(file_path, 'r', newline='', encoding='utf-8') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            line_count = sum(1 for row in csv_reader if row)
+        return line_count
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+        return -1
+    except Exception as e:
+        print(f"Error: {e}")
+        return -1
+
+file_path = 'list.csv'
+line_count = count_lines_in_csv(file_path)   
