@@ -12,6 +12,3 @@ pip install colored pyperclip
 
 # Run your Python script
 python main.py  # Use "python" instead of "python3"
-
-# Deactivate virtual environment after running the script
-deactivate
