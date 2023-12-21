@@ -3,4 +3,4 @@ users.csv
 list.csv
 generatedpasswords.csv
 passwords.csv
-.venv
+.venv/lib/python3.10/site-packages/pip-22.0.2.dist-info/RECORD

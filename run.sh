@@ -1,7 +1,17 @@
 #!/bin/bash
 
+# Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
-pip3 install colored
-pip install pyperclip
-python3 main.py
+
+# Upgrade pip to ensure the latest version is used
+pip install --upgrade pip
+
+# Install dependencies
+pip install colored pyperclip
+
+# Run your Python script
+python main.py  # Use "python" instead of "python3"
+
+# Deactivate virtual environment after running the script
+deactivate
