@@ -31,7 +31,22 @@ Coding Style: PEP 8
 6. Test the feature (reiterate testing)
 7. Production
 ### 2. Checklist of tasks for each feature (at least 5)
-
+### Feature (1) Create New Login
+1. Create menu for user to select a new user
+2. Create if statement (User chooses option 1)
+3. Create new_user function  
+4. Check new_user function requires input from user, opens cvs file, reads it and gives response of successful Login or Login already exist logic.
+5. Test user input and expected output with function
+### Feature (2) Login- Data Validation
+### Feature (3) Store passwords
+### Feature (4) View passwords
+### Feature (5) Add passwords - Manually
+### Feature (6) Add passwords - Generate password
+### Feature (7) Rating password's strength
+### Feature (8) Deleting passwords
+### Feature (9) Password Report: Last Login
+### Feature (10) Password Report: Password Count
+### Feature (11) Password Report: Password Generated Count
 ### 3. Priority: implementation of different features
 1. Creating Login accounts
 2. Login - Data Validation
