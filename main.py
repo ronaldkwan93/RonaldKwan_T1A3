@@ -116,4 +116,3 @@ while users_choice != "5":
 
 
 print(f"{fg('blue')}{bg('black')}Thank you for using OnePWD Manager! See you soon!{attr('reset')}")
-

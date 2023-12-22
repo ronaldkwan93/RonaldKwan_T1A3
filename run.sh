@@ -11,4 +11,4 @@ pip install --upgrade pip
 pip install colored pyperclip
 
 # Run your Python script
-python main.py  # Use "python" instead of "python3"
+python main.py  
