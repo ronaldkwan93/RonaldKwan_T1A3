@@ -24,7 +24,7 @@ url: https://github.com/ronaldkwan93/-RonaldKwan-_T1A3
 ## Identify any code style guide or styling conventions
 Coding Style: PEP 8
 
-## Develop a list of features
+## Develop a list of features (Please refer to below, for breakdown of features)
 ### Feature (1) Create Login
 ### Feature (2) Login- Data Validation
 ### Feature (3) Store passwords
