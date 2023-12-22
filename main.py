@@ -1,10 +1,10 @@
+import csv
 from colored import fg, attr, bg
 from functions import new_user, user
-import csv
 
+BLUE = '\033[94m'
 user_list = "list.csv"
 file_user = "users.csv"
-BLUE = '\033[94m'
 ascii_art = '''
  ____ ____ ____ ____ ____ ____ _________ ____ ____ ____ ____ ____ ____ ____ 
 ||o |||n |||e |||P |||W |||D |||       |||M |||a |||n |||a |||g |||e |||r ||

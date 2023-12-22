@@ -1,10 +1,11 @@
-from colored import fg, attr, bg
 import csv
 import os 
 import random
 import string
 import pyperclip
 from datetime import datetime
+from colored import fg, attr, bg
+
 mainmenu_art = '''
 ____ ____ ____ ____ _________ ____ ____ ____ ____ 
 ||M |||A |||I |||N |||       |||M |||E |||N |||U ||
