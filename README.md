@@ -52,13 +52,15 @@ Coding Style: PEP 8
 2. Create if statement (User chooses option 1)
 3. Create new_user function  
 4. Check new_user function requires input from user, opens cvs file, reads it and gives response of successful Login or Login already exist logic.
-5. Test user input and expected output with function
+5. Error handling is used with  the try and exception function to read if file has already been made previously, or the applications need to do so. This prevents the application from crashing unknowingly.
+6. Test user input and expected output with function
 ### Feature (2) Login- Data Validation
 1. Create inputs (user_name) & (user_pass)
 2. Create opening file and reading existing user list
 3. Create If statement within file reading to check user_name and user_pass is matched within the for loop
 4. Create if the username isn't found, to print error
-5. Test user input and expected output with function
+5. Handling user input with If, elif statements for main menu items
+6. Test user input and expected output with function
 ### Feature (3) View passwords
 1. Create file open to look into user_list cvs
 2. Create for loop to print out any data avaliable
@@ -95,7 +97,7 @@ Similar steps to Feature 4 included
 1. Create variable that collects current time and date, using import Datetime
 2. Create a line count variable
 3. Create a count line function using a For loop to look at the cvs file
-4. Create exceptions when file doesn't exists
+4. Error handling created with Try & Except functions to know when a file does not exist
 5. Test user input and expected output with function
 
 
