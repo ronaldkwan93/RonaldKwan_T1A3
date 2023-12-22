@@ -21,6 +21,9 @@
 ## Link to source control repository
 url: https://github.com/ronaldkwan93/-RonaldKwan-_T1A3
 
+## Link to recorded presentation (Youtube)
+url: https://www.youtube.com/watch?v=PJrkfpolz8A
+
 ## Identify any code style guide or styling conventions
 Coding Style: PEP 8
 
