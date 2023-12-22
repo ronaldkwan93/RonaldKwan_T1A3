@@ -52,10 +52,14 @@ Coding Style: PEP 8
 2. Login - Data Validation
 3. Adding passwords
 4. Storing passwords
-5. Deleting passwords
-6. Generating passwords
-7. Password Report
-8. Rating password strength
+5. Viewing passwords
+6. Deleting passwords
+7. Generating passwords
+8. Password Report: Last Login
+9. Password Report: Password Count
+10. Password Report: Password Generated Report
+11. Rating password strength
+
 
 ### 4. Deadline for each feature
 #### 2 WEEK SPRINT (4 blocks, 3.5 days each)
