@@ -1,14 +1,14 @@
 # T1A3 - Terminal Application Assignment - Ronald Kwan
 
 ## Name of application (OnePWD Manager)
-![Alt text](/src/docs/SS1.JPG)
-![Alt text](/src/docs/SS2.JPG)
-![Alt text](/src/docs/SS3.JPG)
-![Alt text](/src/docs/SS4.JPG)
-![Alt text](/src/docs/SS5gen.JPG)
-![Alt text](/src/docs/SS6.JPG)
-![Alt text](/src/docs/SS7.JPG)
-![Alt text](/src/docs/SS8.JPG)
+![Alt text](/docs/SS1.JPG)
+![Alt text](/docs/SS2.JPG)
+![Alt text](/docs/SS3.JPG)
+![Alt text](/docs/SS4.JPG)
+![Alt text](/docs/SS5gen.JPG)
+![Alt text](/docs/SS6.JPG)
+![Alt text](/docs/SS7.JPG)
+![Alt text](/docs/SS8.JPG)
 
 ## Link to source control repository
 url: https://github.com/ronaldkwan93/-RonaldKwan-_T1A3
